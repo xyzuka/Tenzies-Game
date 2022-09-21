@@ -2,25 +2,41 @@ import './App.css'
 import Die from './components/Die'
 import React from 'react'
 import { nanoid } from 'nanoid'
+import Confetti from 'react-confetti'
 
 /**
- * Challenge: Update the `rollDice` function to not just roll
- * all new dice, but instead to look through the existing dice
- * to NOT role any that are being `held`.
+ * Challenge: Tie off loose ends!
+ * 1. If tenzies is true, Change the button text to "New Game"
+ * 2. If tenzies is true, use the "react-confetti" package to
+ *    render the <Confetti /> component 🎉
  * 
- * Hint: this will look relatively similiar to the `holdDice`
- * function below. When creating new dice, remember to use
- * `id: nanoid()` so any new dice have an `id` as well.
+ *    Hint: don't worry about the `height` and `width` props
+ *    it mentions in the documentation.
  */
 
 function App() {
   const [diceNumbers, setDiceNumbers] = React.useState(allNewDice())
 
+  const [tenzies, setTenzies] = React.useState(false)
+
+  React.useEffect(() => {
+    const allHeld = diceNumbers.every(die => die.isHeld)
+
+    const dieValue = diceNumbers[0].value
+
+    const allSameDieValue = diceNumbers.every(die => die.value === dieValue)
+
+    if (allHeld && allSameDieValue) {
+      setTenzies(true)
+      console.log('you won!')
+    }
+  }, [diceNumbers])
+
   function generateNewDie() {
     return {
         value: Math.ceil(Math.random() * 6),
         isHeld: false,
-        id: nanoid()
+        id: nanoid(),
     }
   }
 
@@ -32,7 +48,16 @@ function App() {
     return newDiceObject
   }
 
+  function resetGame() {
+    setDiceNumbers(allNewDice())
+    setTenzies(false)
+  }
+
   function resetDiceNumbers() {
+    if (tenzies) {
+      return resetGame()
+    }
+
     setDiceNumbers(prevDiceNumbers => prevDiceNumbers.map(die => {
       return die.isHeld ? die : generateNewDie()
     }))
@@ -54,13 +79,20 @@ function App() {
       holdDice={() => holdDice(die.id)}
     />
   })
- 
+
   return (
       <main className='game-container'>
+        {tenzies && <Confetti />}
+        <h2 className='game-header'>Tenzies</h2>
+        <div className="game-instructions">
+          {tenzies ? "Congratulations! You won!" : "Roll until all dice are the same. Click each die to freeze it at its current value between rolls."}
+        </div>
         <div className="die-container">
           {renderedDice}
         </div>
-        <button onClick={resetDiceNumbers}>Roll</button>
+        <button onClick={resetDiceNumbers}>
+          {tenzies ? "New Game" : "Roll" }
+        </button>
       </main>
   )
 }

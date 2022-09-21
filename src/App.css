@@ -54,10 +54,33 @@ button {
   border-radius: 5px;
   border-style: none;
   cursor: pointer;
-  padding: 6px 20px 6px 20px;
+  padding: 10px 20px 10px 20px;
 }
 
 button:active{
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
   scale: 1.05;
+}
+
+.game-header{
+  font-family: 'Karla', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 30px;
+  color: #2B283A;
+}
+
+.game-instructions {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1rem;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.03em;
+  color: #4A4E74;
+  margin: 0 50px 0 50px; 
 }
