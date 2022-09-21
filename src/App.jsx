@@ -17,9 +17,8 @@ function App() {
   const [diceNumbers, setDiceNumbers] = React.useState(allNewDice())
 
   function generateNewDie() {
-    const randomDice = Math.ceil(Math.random() * 6);
     return {
-        value: randomDice,
+        value: Math.ceil(Math.random() * 6),
         isHeld: false,
         id: nanoid()
     }
@@ -28,24 +27,16 @@ function App() {
   function allNewDice() {
     const newDiceObject = [];
     for (let i = 0; i < 10; i++) {
-      // const newDieRoll = generateNewDie();
-      newDiceObject.push(generateNewDie());
+      newDiceObject.push(generateNewDie())
     }
     return newDiceObject
   }
 
   function resetDiceNumbers() {
-    setDiceNumbers(allNewDice())
+    setDiceNumbers(prevDiceNumbers => prevDiceNumbers.map(die => {
+      return die.isHeld ? die : generateNewDie()
+    }))
   }
-
-  
-  ////
-
-  // function resetDiceNumbers() {
-  //   setDiceNumbers(prevDiceNumbers => prevDiceNumbers.map(die => {
-  //     return die.isHeld ? die : allNewDice
-  //   }))
-  // }
 
   function holdDice(id) {
     setDiceNumbers(prevDiceNumbers => prevDiceNumbers.map(die => {
