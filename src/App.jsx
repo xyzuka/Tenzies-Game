@@ -4,16 +4,6 @@ import React from 'react'
 import { nanoid } from 'nanoid'
 import Confetti from 'react-confetti'
 
-/**
- * Challenge: Tie off loose ends!
- * 1. If tenzies is true, Change the button text to "New Game"
- * 2. If tenzies is true, use the "react-confetti" package to
- *    render the <Confetti /> component 🎉
- * 
- *    Hint: don't worry about the `height` and `width` props
- *    it mentions in the documentation.
- */
-
 function App() {
   const [diceNumbers, setDiceNumbers] = React.useState(allNewDice())
 
@@ -80,7 +70,10 @@ function App() {
     />
   })
 
+  const anyHeld = diceNumbers.some(die => die.isHeld)
+
   return (
+    <div className='app-content'>
       <main className='game-container'>
         {tenzies && <Confetti />}
         <h2 className='game-header'>Tenzies</h2>
@@ -94,6 +87,13 @@ function App() {
           {tenzies ? "New Game" : "Roll" }
         </button>
       </main>
+
+      <section className={anyHeld ? 'score-board' : 'hide'}>
+        <div className='score-section stats'>
+          <span className="score-label s">Total Rolls:</span><span className='score stats'> -</span>
+        </div>
+      </section>
+    </div>
   )
 }
 
