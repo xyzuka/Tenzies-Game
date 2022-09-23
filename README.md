@@ -7,8 +7,6 @@
 
 ## Live Gif
 
-
-
 Roll until all dice are the same             |  Win once all dice are the same!
 :-------------------------:|:-------------------------:
 ![demo1](https://user-images.githubusercontent.com/94155478/191900209-f223f337-405c-476b-969c-22d0f4507718.gif)  |  ![demo2](https://user-images.githubusercontent.com/94155478/191900230-3b10bd43-25e9-4d56-ae86-b52da9159616.gif)
