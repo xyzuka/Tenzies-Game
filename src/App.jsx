@@ -1,5 +1,6 @@
 import './App.css'
 import Die from './components/Die'
+import Scoreboard from './components/Scoreboard'
 import React from 'react'
 import { nanoid } from 'nanoid'
 import Confetti from 'react-confetti'
@@ -8,6 +9,8 @@ function App() {
   const [diceNumbers, setDiceNumbers] = React.useState(allNewDice())
 
   const [tenzies, setTenzies] = React.useState(false)
+
+  const [rollCount, setRollCount] = React.useState(0)
 
   React.useEffect(() => {
     const allHeld = diceNumbers.every(die => die.isHeld)
@@ -18,7 +21,6 @@ function App() {
 
     if (allHeld && allSameDieValue) {
       setTenzies(true)
-      console.log('you won!')
     }
   }, [diceNumbers])
 
@@ -41,6 +43,7 @@ function App() {
   function resetGame() {
     setDiceNumbers(allNewDice())
     setTenzies(false)
+    setRollCount(0)
   }
 
   function resetDiceNumbers() {
@@ -51,6 +54,9 @@ function App() {
     setDiceNumbers(prevDiceNumbers => prevDiceNumbers.map(die => {
       return die.isHeld ? die : generateNewDie()
     }))
+
+    setRollCount(prevRollCount => 
+      ++prevRollCount)
   }
 
   function holdDice(id) {
@@ -70,15 +76,13 @@ function App() {
     />
   })
 
-  const anyHeld = diceNumbers.some(die => die.isHeld)
-
   return (
     <div className='app-content'>
       <main className='game-container'>
         {tenzies && <Confetti />}
         <h2 className='game-header'>Tenzies</h2>
         <div className="game-instructions">
-          {tenzies ? "Congratulations! You won!" : "Roll until all dice are the same. Click each die to freeze it at its current value between rolls."}
+          {tenzies ? `Congratulations! You won! You rolled the dice ${rollCount} times.` : "Roll until all dice are the same. Click each die to freeze it at its current value between rolls."}
         </div>
         <div className="die-container">
           {renderedDice}
@@ -88,11 +92,9 @@ function App() {
         </button>
       </main>
 
-      <section className={anyHeld ? 'score-board' : 'hide'}>
-        <div className='score-section stats'>
-          <span className="score-label s">Total Rolls:</span><span className='score stats'> -</span>
-        </div>
-      </section>
+      <Scoreboard 
+        rolls={rollCount}
+      />
     </div>
   )
 }
