@@ -20,3 +20,10 @@ This project was created as a capstone project for learning the Fundamentals of 
 Rendered each die with CSS following this tutorial
 
 - [How to render die using CSS Flexbox](https://betterprogramming.pub/creating-dice-in-flexbox-in-css-a02a5d85e516)
+
+## Key learnings from this project
+
+* Managing state in React
+* Passing props via Components
+* Using React.useEffect to keep track of state
+* Dynamic rendering with conditional formatting
