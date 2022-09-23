@@ -8,6 +8,17 @@ body {
   padding: 20px;
 }
 
+/* FADE IN ANIMATION */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 /* GAME CONTENTS */
 
 .app-content {
@@ -19,7 +30,7 @@ body {
 .game-container {
   background-color: #F5F5F5;
   height: 400px;
-  width: 80%;
+  width: 50%;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -83,17 +94,12 @@ button:active{
 .die {
   width: 40px;
   height: 40px;
-  /* font-family: 'Karla', sans-serif; */
-  /* font-size: 20px; */
-  /* font-weight: 700; */
   border-radius: 5px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   cursor: pointer;
   background-color: white;
   padding: 5px;
+  animation: fade-in 1.5s forwards;
 }
 
 .dot {
@@ -151,18 +157,8 @@ button:active{
   justify-content: center;
 }
 
-
 /* SCOREBOARD RENDERING */
 
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
 .score-board {
   background-color: #F5F5F5;
   max-width: 200px;
@@ -189,3 +185,28 @@ button:active{
   display: none;
 }
 
+/* MOBILE FORMATTING */
+
+@media only screen and (max-width: 600px) {
+  .game-container {
+      background-color: #F5F5F5;
+      height: 450px;
+      width: 95%;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+    }
+
+  .die-container {
+    display: grid;
+    grid-template: auto auto / repeat(5, 1fr);
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
